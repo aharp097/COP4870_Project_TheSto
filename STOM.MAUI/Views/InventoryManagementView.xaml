@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="STOM.MAUI.Views.InventoryManagementView"
+             Title="The Sto"
+             NavigatedTo="InventoryPage_NavigatedTo"
+             NavigatedFrom="InventoryPage_NavigatedFrom">
+    <VerticalStackLayout>
+        <Label Grid.Column="0"
+        Text="Inventory Management"
+        FontSize="Large"
+        />
+        <ListView
+            ItemsSource="{Binding Products}"
+            SelectedItem="{Binding SelectedProduct}"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+
+
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="1" Text="{Binding Id}" />
+                                <Label Grid.Column="2" Text="{Binding Name}" FontAttributes="Bold"/>
+                                <Label Grid.Column="3" Text="{Binding Description}"/>
+                                <Label Grid.Column="4" Text="{Binding Price}"/>
+                                <Label Grid.Column="4" Text="{Binding Stock}"/>
+                                <Button Grid.Column="4" 
+                                    Text="Edit"
+                                    Command="{Binding Path=EditCommand}"
+                                    CommandParameter="{Binding}"
+                                    />
+                                <Button Grid.Column="5" Text="Email"></Button>
+                                <Button Grid.Column="6" 
+                                    Text="Delete"
+                                    Command="{Binding Path=DeleteCommand}"
+                                    CommandParameter="{Binding}"
+                                    Clicked="InlineDelete_Clicked"
+                                    ></Button>
+                            </Grid>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button
+            Text="Add"
+            Clicked="AddClicked"
+            />
+        <Button
+            Text="Back to Home"
+            Clicked="GoBack"
+            />
+    </VerticalStackLayout>
+    
+</ContentPage>

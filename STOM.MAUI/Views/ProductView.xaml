@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="STOM.MAUI.Views.ProductView"
+             Title="ProductView"
+             NavigatedTo="ProductPage_NavigatedTo">
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Name"/>
+            <Entry Grid.Column="1" Text="{Binding Name}"/>
+        </Grid>
+
+        <Button Text="OK" Clicked="OkClicked"/> <!--Remember for later: IsVisible=""-->
+        <Button Text="CANCEL" Clicked="CancelClicked"/>
+
+
+    </VerticalStackLayout>
+</ContentPage>

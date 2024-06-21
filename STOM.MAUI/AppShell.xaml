@@ -4,12 +4,28 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:STOM.MAUI"
+    xmlns:views="clr-namespace:STOM.MAUI.Views"
     Shell.FlyoutBehavior="Disabled"
     Title="STOM.MAUI">
 
     <ShellContent
-        Title="Home"
+        Title="The Sto"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    
+    <ShellContent
+        Title="The Sto"
+        ContentTemplate="{DataTemplate views:InventoryManagementView}"
+        Route="Inventory" />
+
+    <ShellContent
+        Title="The Sto"
+        ContentTemplate="{DataTemplate views:ShopView}"
+        Route="Shop" />
+
+    <ShellContent
+    Title="The Sto"
+    ContentTemplate="{DataTemplate views:ProductView}"
+    Route="Product" />
 
 </Shell>

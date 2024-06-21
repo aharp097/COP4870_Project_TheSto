@@ -46,7 +46,7 @@ namespace STO.Library.Services
                 return 0;
             }
         }
-        public Product? AddOrUpdate(Product product)
+        public Product? AddOrUpdate(Product? product)
         {
             if(products == null)
             {
