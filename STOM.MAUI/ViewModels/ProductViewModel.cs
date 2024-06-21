@@ -11,24 +11,44 @@ namespace STOM.MAUI.ViewModels
 {
     public class ProductViewModel
     {
+        public override string ToString()
+        {
+            if (Product == null)
+            {
+                return string.Empty;
+            }
+            return $"[{Product.Id}] {Product.Name} - {Product.Price.ToString("C2")} \n{Product.Description} \nIn Stock: {Product.Stock} \n";
+        }
         public ICommand EditCommand {  get; private set; }
 
         public ICommand? DeleteCommand { get; private set; }
 
         public Product? Product;
 
-        public string? Name
+        public string DisplayPrice
         {
             get
             {
-                return Product?.Name ?? string.Empty;
+                if (Product == null) { return string.Empty; }
+                return $"{Product.Price:C}";
             }
+        }
 
+        public string PriceAsString
+        {
             set
             {
-                if (Product != null)
+                if (Product == null)
                 {
-                    Product.Name = value;
+                    return;
+                }
+                if (decimal.TryParse(value, out var price))
+                {
+                    Product.Price = price;
+                }
+                else
+                {
+
                 }
             }
         }
@@ -54,7 +74,11 @@ namespace STOM.MAUI.ViewModels
 
         public void Add()
         {
-            ContactServerProxy.Current.AddOrUpdate(Product);
+            if (Product != null)
+            {
+                ContactServerProxy.Current.AddOrUpdate(Product);
+            }
+            
         }
         public void SetupCommands()
         {

@@ -1,5 +1,12 @@
 ﻿using STO.Models;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace STO.Library.Services
 {
@@ -7,7 +14,12 @@ namespace STO.Library.Services
     {
         private ContactServerProxy() 
         {
-            products = new List<Product>();
+            products = new List<Product>
+            {
+                new Product{Id = 1,Name = "Product 1", Price=1.75M, Stock=1}
+                , new Product{Id = 2,Name = "Product 2", Price=10M, Stock=10}
+                , new Product{Id = 3,Name = "Product 3", Price=137.11M, Stock=100}
+            };
         }
         private static ContactServerProxy? instance;
         private static object instanceLock = new object();

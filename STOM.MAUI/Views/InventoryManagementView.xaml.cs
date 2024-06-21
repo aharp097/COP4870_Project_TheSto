@@ -13,7 +13,7 @@ public partial class InventoryManagementView : ContentPage
 
 	private void EditClicked(object sender, EventArgs e)
 	{
-		(BindingContext as InventoryManagementViewModel).UpdateProduct();
+		(BindingContext as InventoryManagementViewModel)?.UpdateProduct();
 	}
 
     private void AddClicked(object sender, EventArgs e)
@@ -26,7 +26,7 @@ public partial class InventoryManagementView : ContentPage
     }
     private void InventoryPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-        (BindingContext as InventoryManagementViewModel).RefreshInventory();
+        (BindingContext as InventoryManagementViewModel)?.RefreshInventory();
     }
 
     private void InventoryPage_NavigatedFrom(object sender, NavigatedFromEventArgs e)
@@ -35,6 +35,6 @@ public partial class InventoryManagementView : ContentPage
     }
     private void InlineDelete_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as InventoryManagementViewModel).RefreshInventory();
+        (BindingContext as InventoryManagementViewModel)?.RefreshInventory();
     }
 }

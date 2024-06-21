@@ -3,12 +3,12 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace STOM.MAUI.ViewModels
-{ //18 vid 10
+{ 
     public class InventoryManagementViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void NotifyProductChanged([CallerMemberName] String propertyName = "")
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -16,18 +16,16 @@ namespace STOM.MAUI.ViewModels
         {
             get
             {
-                return ContactServerProxy.Current?.Products?.Select(p => new ProductViewModel(p)).ToList() ?? new List<ProductViewModel>();
+                return ContactServerProxy.Current?.Products?.Where(p=>p != null)
+                    .Select(p => new ProductViewModel(p)).ToList() 
+                    ?? new List<ProductViewModel>();
             }
         }
         public ProductViewModel SelectedProduct { get; set; }
-        public InventoryManagementViewModel()
-        {
-           
-        }
 
         public void RefreshInventory()
         {
-            NotifyProductChanged("Products");
+            NotifyPropertyChanged(nameof(Products));
         }
         public void UpdateProduct()
         {

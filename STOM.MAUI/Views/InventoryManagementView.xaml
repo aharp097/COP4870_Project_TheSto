@@ -40,23 +40,22 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="1" Text="{Binding Id}" />
-                                <Label Grid.Column="2" Text="{Binding Name}" FontAttributes="Bold"/>
-                                <Label Grid.Column="3" Text="{Binding Description}"/>
-                                <Label Grid.Column="4" Text="{Binding Price}"/>
-                                <Label Grid.Column="4" Text="{Binding Stock}"/>
-                                <Button Grid.Column="4" 
+                                <Label Grid.Column="1" Text="{Binding Display}" />
+                                <!--<Label Grid.Column="2" Text="{Binding Product.Name}" FontAttributes="Bold"/>
+                                --><!--<Label Grid.Column="3" Text="{Binding Model.Description}"/>--><!--
+                                <Label Grid.Column="3" Text="{Binding DisplayPrice}"/>
+                                <Label Grid.Column="4" Text="{Binding Product.Stock}"/>-->
+                                <!--<Button Grid.Column="5" 
                                     Text="Edit"
                                     Command="{Binding Path=EditCommand}"
                                     CommandParameter="{Binding}"
                                     />
-                                <Button Grid.Column="5" Text="Email"></Button>
                                 <Button Grid.Column="6" 
                                     Text="Delete"
                                     Command="{Binding Path=DeleteCommand}"
                                     CommandParameter="{Binding}"
                                     Clicked="InlineDelete_Clicked"
-                                    ></Button>
+                                    ></Button>-->
                             </Grid>
                         </Grid>
                     </ViewCell>

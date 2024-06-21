@@ -3,20 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="STOM.MAUI.Views.ProductView"
              Title="ProductView"
-             NavigatedTo="ProductPage_NavigatedTo">
+             NavigatedTo="ProductPage_NavigatedTo"
+             >
     <VerticalStackLayout>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Name"/>
-            <Entry Grid.Column="1" Text="{Binding Name}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Text="Id" Grid.Row="0" Grid.Column="0"/>
+            <Label Text="{Binding Product.Id}" Grid.Row="0" Grid.Column="1"/>
+
+            <Label Text="Name" Grid.Row="1" Grid.Column="0"/>
+            <Entry Text="{Binding Product.Name}" Grid.Row="1" Grid.Column="1"/>
+
+            <Label Text="Price" Grid.Row="2" Grid.Column="0"/>
+            <Entry Text="{Binding PriceAsString}" Grid.Row="2" Grid.Column="1"/>
+
+            <Label Text="Quantity" Grid.Row="3" Grid.Column="0"/>
+            <Entry Text="{Binding Product.Quantity}" Grid.Row="3" Grid.Column="1"/>
         </Grid>
-
-        <Button Text="OK" Clicked="OkClicked"/> <!--Remember for later: IsVisible=""-->
-        <Button Text="CANCEL" Clicked="CancelClicked"/>
-
-
+        <Button Text="Ok" Clicked="OkClicked"/>
+        <Button Text="Cancel" Clicked="CancelClicked"/>
     </VerticalStackLayout>
 </ContentPage>
