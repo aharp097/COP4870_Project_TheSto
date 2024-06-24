@@ -59,7 +59,7 @@ namespace STOM.MAUI.ViewModels
             {
                 return; 
             }
-            Shell.Current.GoToAsync($"//Product?ProductId={p.Model.Id}");
+            Shell.Current.GoToAsync($"//Product?productId={p.Model.Id}");
         }
 
         private void ExecuteDelete(int? id)
