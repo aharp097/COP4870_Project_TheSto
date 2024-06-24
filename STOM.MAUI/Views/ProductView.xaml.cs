@@ -9,7 +9,7 @@ public partial class ProductView : ContentPage
 	public ProductView()
 	{
 		InitializeComponent();
-        BindingContext = new ProductViewModel();
+       // BindingContext = new ProductViewModel();
     }
 
     private void OkClicked(object sender, EventArgs e)
@@ -22,7 +22,7 @@ public partial class ProductView : ContentPage
     {
         Shell.Current.GoToAsync("//Inventory");
     }
-    private void ProductPage_NavigatedTo(object sender, NavigationEventArgs e)
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
         BindingContext = new ProductViewModel();
     }

@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="STOM.MAUI.Views.InventoryManagementView"
              Title="The Sto"
-             NavigatedTo="InventoryPage_NavigatedTo"
-             NavigatedFrom="InventoryPage_NavigatedFrom">
+             NavigatedTo="ContentPage_NavigatedTo"
+             NavigatedFrom="ContentPage_NavigatedFrom">
     <VerticalStackLayout>
         <Label Grid.Column="0"
         Text="Inventory Management"

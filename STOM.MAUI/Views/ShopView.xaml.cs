@@ -17,7 +17,17 @@ public partial class ShopView : ContentPage
 
     private void Search_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as ShopViewModel).RefreshInventory();
+        (BindingContext as ShopViewModel).Search();
+    }
+
+    private void AddtoCart_Clicked(object sender, EventArgs e)
+    {
+        (BindingContext as ShopViewModel).Search();
+    }
+
+    private void Checkout_Clicked(object sender, EventArgs e)
+    {
+        (BindingContext as ShopViewModel).Search();
     }
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
