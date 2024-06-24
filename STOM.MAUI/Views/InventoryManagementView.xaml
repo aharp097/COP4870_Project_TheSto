@@ -9,7 +9,7 @@
         <Label Grid.Column="0"
         Text="Inventory Management"
         FontSize="Large"
-        />
+        /> 
         <ListView
             ItemsSource="{Binding Products}"
             SelectedItem="{Binding SelectedProduct}"
@@ -45,7 +45,7 @@
                                 --><!--<Label Grid.Column="3" Text="{Binding Model.Description}"/>--><!--
                                 <Label Grid.Column="3" Text="{Binding DisplayPrice}"/>
                                 <Label Grid.Column="4" Text="{Binding Product.Stock}"/>-->
-                                <!--<Button Grid.Column="5" 
+                                <Button Grid.Column="5" 
                                     Text="Edit"
                                     Command="{Binding Path=EditCommand}"
                                     CommandParameter="{Binding}"
@@ -55,7 +55,7 @@
                                     Command="{Binding Path=DeleteCommand}"
                                     CommandParameter="{Binding}"
                                     Clicked="InlineDelete_Clicked"
-                                    ></Button>-->
+                                    ></Button>
                             </Grid>
                         </Grid>
                     </ViewCell>

@@ -13,24 +13,24 @@ namespace STOM.MAUI.ViewModels
     {
         public override string ToString()
         {
-            if (Product == null)
+            if (Model == null)
             {
                 return string.Empty;
             }
-            return $"[{Product.Id}] {Product.Name} - {Product.Price.ToString("C2")} \n{Product.Description} \nIn Stock: {Product.Stock} \n";
+            return $"[{Model.Id}] {Model.Name} - {Model.Price.ToString("C2")} \n{Model.Description} \nIn Stock: {Model.Stock} \n";
         }
         public ICommand EditCommand {  get; private set; }
 
         public ICommand? DeleteCommand { get; private set; }
 
-        public Product? Product;
-
+        public Product? Model { get; set; }
+            
         public string DisplayPrice
         {
             get
             {
-                if (Product == null) { return string.Empty; }
-                return $"{Product.Price:C}";
+                if (Model == null) { return string.Empty; }
+                return $"{Model.Price:C}";
             }
         }
 
@@ -38,13 +38,13 @@ namespace STOM.MAUI.ViewModels
         {
             set
             {
-                if (Product == null)
+                if (Model == null)
                 {
                     return;
                 }
                 if (decimal.TryParse(value, out var price))
                 {
-                    Product.Price = price;
+                    Model.Price = price;
                 }
                 else
                 {
@@ -55,11 +55,11 @@ namespace STOM.MAUI.ViewModels
 
         private void ExecuteEdit(ProductViewModel? p)
         {
-            if (p?.Product == null)
+            if (p?.Model == null)
             {
                 return; 
             }
-            Shell.Current.GoToAsync($"//Product?ProductId={p.Product.Id}");
+            Shell.Current.GoToAsync($"//Product?ProductId={p.Model.Id}");
         }
 
         private void ExecuteDelete(int? id)
@@ -74,35 +74,35 @@ namespace STOM.MAUI.ViewModels
 
         public void Add()
         {
-            if (Product != null)
+            if (Model != null)
             {
-                ContactServerProxy.Current.AddOrUpdate(Product);
+                ContactServerProxy.Current.AddOrUpdate(Model);
             }
             
         }
         public void SetupCommands()
         {
             EditCommand = new Command((p) => ExecuteEdit(p as ProductViewModel));
-            DeleteCommand = new Command((p) => ExecuteDelete((p as ProductViewModel)?.Product?.Id));
+            DeleteCommand = new Command((p) => ExecuteDelete((p as ProductViewModel)?.Model?.Id));
 
         }
         public ProductViewModel() 
         {
-            Product = new Product();
+            Model = new Product();
             SetupCommands();
         }
-
+                
         public ProductViewModel(int id)
         {
-            Product = ContactServerProxy.Current?.Products?.FirstOrDefault(p => p.Id == id);
-            if(Product == null)
+            Model = ContactServerProxy.Current?.Products?.FirstOrDefault(p => p.Id == id);
+            if(Model == null)
             {
-                Product = new Product();
+                Model = new Product();
             }
         }
-        public ProductViewModel(Product p)
+        public ProductViewModel(Product? p)
         {
-            Product = p;
+            Model = p;
             SetupCommands();
         }
         public string? Display

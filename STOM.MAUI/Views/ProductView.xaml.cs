@@ -9,7 +9,8 @@ public partial class ProductView : ContentPage
 	public ProductView()
 	{
 		InitializeComponent();
-	}
+        BindingContext = new ProductViewModel();
+    }
 
     private void OkClicked(object sender, EventArgs e)
     {

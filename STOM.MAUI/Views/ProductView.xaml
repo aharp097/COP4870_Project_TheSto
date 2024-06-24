@@ -18,16 +18,16 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Text="Id" Grid.Row="0" Grid.Column="0"/>
-            <Label Text="{Binding Product.Id}" Grid.Row="0" Grid.Column="1"/>
+            <Label Text="{Binding Model.Id}" Grid.Row="0" Grid.Column="1"/>
 
             <Label Text="Name" Grid.Row="1" Grid.Column="0"/>
-            <Entry Text="{Binding Product.Name}" Grid.Row="1" Grid.Column="1"/>
+            <Entry Text="{Binding Model.Name}" Grid.Row="1" Grid.Column="1"/>
 
             <Label Text="Price" Grid.Row="2" Grid.Column="0"/>
             <Entry Text="{Binding PriceAsString}" Grid.Row="2" Grid.Column="1"/>
 
             <Label Text="Quantity" Grid.Row="3" Grid.Column="0"/>
-            <Entry Text="{Binding Product.Quantity}" Grid.Row="3" Grid.Column="1"/>
+            <Entry Text="{Binding Model.Stock}" Grid.Row="3" Grid.Column="1"/>
         </Grid>
         <Button Text="Ok" Clicked="OkClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked"/>

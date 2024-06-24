@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace STOM.MAUI.ViewModels
-{ 
+{ //13 vid 13
     public class InventoryManagementViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -29,21 +29,21 @@ namespace STOM.MAUI.ViewModels
         }
         public void UpdateProduct()
         {
-            if (SelectedProduct?.Product == null)
+            if (SelectedProduct?.Model == null)
             {
                 return;
             }
-            Shell.Current.GoToAsync($"//Product?ProductId={SelectedProduct.Product.Id}");
-            ContactServerProxy.Current.AddOrUpdate(SelectedProduct.Product);
+            Shell.Current.GoToAsync($"//Product?ProductId={SelectedProduct.Model.Id}");
+            ContactServerProxy.Current.AddOrUpdate(SelectedProduct.Model);
         }
         public void DeleteProduct()
         {
-            if (SelectedProduct?.Product == null)
+            if (SelectedProduct?.Model == null)
             {
                 return;
             }
 
-            ContactServerProxy.Current.Delete(SelectedProduct.Product.Id);
+            ContactServerProxy.Current.Delete(SelectedProduct.Model.Id);
             RefreshInventory();
         }
     }

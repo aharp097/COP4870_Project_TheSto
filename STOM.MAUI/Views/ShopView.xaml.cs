@@ -14,4 +14,14 @@ public partial class ShopView : ContentPage
     {
         Shell.Current.GoToAsync("//MainPage");
     }
+
+    private void Search_Clicked(object sender, EventArgs e)
+    {
+        (BindingContext as ShopViewModel).RefreshInventory();
+    }
+
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+    {
+        (BindingContext as ShopViewModel).RefreshInventory();
+    }
 }
