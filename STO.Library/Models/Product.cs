@@ -18,5 +18,14 @@ namespace STO.Models
         {
             
         }
+
+        public Product(Product p)
+        {
+            Name = p.Name;
+            Description = p.Description;
+            Price = p.Price;
+            Id = p.Id;
+            Stock = p.Stock;
+        }
     }
 }

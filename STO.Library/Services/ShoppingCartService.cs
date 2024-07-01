@@ -13,22 +13,31 @@ namespace STO.Library.Services
     {
         private static ShoppingCartService? instance;
         private static object instanceLock = new object();
-
-        public ReadOnlyCollection<ShoppingCart> carts;
+        private List<ShoppingCart> carts;
+        public ReadOnlyCollection<ShoppingCart> Carts
+        {
+            get
+            {
+                return carts.AsReadOnly();
+            }
+        }
 
         public ShoppingCart Cart
         {
             get
             {
-                if (carts == null || !carts.Any())
+                if (!carts.Any())
                 {
-                    return new ShoppingCart();
+                    var newCart = new ShoppingCart();
+                    carts.Add(newCart);
+                    return newCart;
                 }
                 return carts?.FirstOrDefault() ?? new ShoppingCart();
             }
         }
         private ShoppingCartService()
         {
+            carts = new List<ShoppingCart>();
 
         }
         public static ShoppingCartService Current
@@ -60,7 +69,7 @@ namespace STO.Library.Services
             var oldp = Cart?.Contents?.FirstOrDefault(oldps => oldps.Id == newp.Id);
             
             var inventoryp = ContactServerProxy.Current.Products.FirstOrDefault(invProd => invProd.Id == newp.Id);
-            if (inventoryp != null)
+            if (inventoryp == null)
             {
                 return;
             }
@@ -71,7 +80,7 @@ namespace STO.Library.Services
             }
             else
             {
-                Cart.Contents.Add(newp);
+                Cart?.Contents.Add(newp);
             }
         }
             

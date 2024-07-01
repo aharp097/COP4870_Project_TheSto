@@ -80,6 +80,15 @@ namespace STOM.MAUI.ViewModels
             }
             
         }
+
+        public void AddToCart()
+        {
+            if (Model != null)
+            {
+                ShoppingCartService.Current.AddToCart(Model);
+            }
+
+        }
         public void SetupCommands()
         {
             EditCommand = new Command((p) => ExecuteEdit(p as ProductViewModel));

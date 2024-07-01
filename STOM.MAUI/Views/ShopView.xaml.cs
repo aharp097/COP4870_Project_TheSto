@@ -1,3 +1,4 @@
+using STO.Models;
 using STOM.MAUI.ViewModels;
 
 namespace STOM.MAUI.Views;
@@ -22,7 +23,7 @@ public partial class ShopView : ContentPage
 
     private void AddtoCart_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as ShopViewModel).Search();
+        (BindingContext as ShopViewModel).AddToCart();
     }
 
     private void Checkout_Clicked(object sender, EventArgs e)

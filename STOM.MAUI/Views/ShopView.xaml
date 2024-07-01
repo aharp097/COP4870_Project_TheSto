@@ -9,22 +9,16 @@
     Text="Shopping"
     FontSize="Large"
     />
-        <ListView
-        ItemsSource="{Binding Products}"
-        SelectedItem="{Binding SelectedProduct}"
-        >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition/>
 
 
-                            </Grid.RowDefinitions>
+            </Grid.RowDefinitions>
 
-                            <!--<Grid Grid.Row="0" Grid.Column="1">
+            <!--<Grid Grid.Row="0" Grid.Column="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="10*"/>
                                     <ColumnDefinition/>
@@ -32,7 +26,15 @@
                                 <Entry Grid.Column="0" Text="{Binding InventoryQuery}"/>
                                 <Button Grid.Column="1" Text ="Search" Clicked="Search_Clicked"/>
                             </Grid>-->
-                            <!--Inventory-->
+
+            <!--Inventory-->
+            <ListView
+                ItemsSource="{Binding Products}"
+                SelectedItem="{Binding SelectedProduct}"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
                             <Grid Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -40,65 +42,68 @@
                                     <ColumnDefinition Width="5*"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="2" Text="{Binding Display}" />
+                                <Label Grid.Column="0" Text="{Binding Display}" />
                                 <!--<Label Grid.Column="2" Text="{Binding Product.Name}" FontAttributes="Bold"/>
-                            -->
+                                            -->
                                 <!--<Label Grid.Column="3" Text="{Binding Model.Description}"/>-->
                                 <!--
-                            <Label Grid.Column="3" Text="{Binding DisplayPrice}"/>
-                            <Label Grid.Column="4" Text="{Binding Product.Stock}"/>-->
+                                            <Label Grid.Column="3" Text="{Binding DisplayPrice}"/>
+                                            <Label Grid.Column="4" Text="{Binding Product.Stock}"/>-->
                                 <!--<Button Grid.Column="5" 
-                                Text="Edit"
-                                Command="{Binding Path=EditCommand}"
-                                CommandParameter="{Binding}"
-                                />
-                                <Button Grid.Column="6" 
-                                Text="Delete"
-                                Command="{Binding Path=DeleteCommand}"
-                                CommandParameter="{Binding}"
-                                Clicked="InlineDelete_Clicked"
-                                ></Button>-->
-                            </Grid>
-                            <!-- Cart -->
-                            <Grid Grid.Row="0" Grid.Column="1">
-                                <ListView
-                                    ItemsSource="{Binding Cart.Contents}"
-                                    >
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <ViewCell>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition/>
-                                                        <ColumnDefinition/>
-                                                        <ColumnDefinition Width="5*"/>
-                                                        <ColumnDefinition/>
-                                                    </Grid.ColumnDefinitions>
+                                                Text="Edit"
+                                                Command="{Binding Path=EditCommand}"
+                                                CommandParameter="{Binding}"
+                                                />
+                                                <Button Grid.Column="6" 
+                                                Text="Delete"
+                                                Command="{Binding Path=DeleteCommand}"
+                                                CommandParameter="{Binding}"
+                                                Clicked="InlineDelete_Clicked"
+                                                ></Button>-->
 
-                                                    <Label Grid.Column="0" Text="{Binding Display}"/>
-                                                    <!--<Label Grid.Column="1" Text="{Binding DisplayPrice}"/>
+                                <!--<Button Grid.Column="2" 
+                                    Text="Add to Cart"
+                                    Clicked="AddtoCart_Clicked"/>-->
+
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <!-- Cart -->
+            <!--<Grid Grid.Row="0" Grid.Column="3">
+                    <ListView
+                       ItemsSource="{Binding PIC}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="5*"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="2" Text="{Binding Display}"/>
+                                        -->
+            <!--<Label Grid.Column="1" Text="{Binding DisplayPrice}"/>
                                                     <Label Grid.Column="2" Text="{Binding Model.Name}"/>
                                                     <Label Grid.Column="3" Text="{Binding Model.Quantity}"/>-->
-                                                    <Button Grid.Column="5" 
-                                                    Text="Add to Cart"
-                                                    Command="{Binding Path=AddtoCart_Clicked}"
-                                                    CommandParameter="{Binding}"
-                                                    />
-                                                </Grid>
-                                            </ViewCell>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </Grid>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <!--<Button
-                        Text="Add"
-                        Clicked="AddClicked"
-                        />-->
+            <!--
+
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>-->
+        </Grid>
+        <Button
+                Text="Add to Cart"
+                Clicked="AddtoCart_Clicked"
+                />
         <Grid Grid.Row="2"
               Grid.ColumnSpan="2">
             <Button 
