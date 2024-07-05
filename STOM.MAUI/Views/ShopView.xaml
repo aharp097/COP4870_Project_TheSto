@@ -97,9 +97,11 @@
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Label Grid.Column="0" Text="{Binding Display}"/>
-                                        
-            <!--<Label Grid.Column="1" Text="{Binding DisplayPrice}"/>
+                                    <Label Grid.Column="0" Text="{Binding Display}"/>
+
+                                    <!--<Label Grid.Column="1" Text="{Binding TotalAsString}"/>-->
+
+                                    <!--<Label Grid.Column="1" Text="{Binding DisplayPrice}"/>
                                                     <Label Grid.Column="2" Text="{Binding Model.Name}"/>
                                                     <Label Grid.Column="3" Text="{Binding Model.Quantity}"/>-->
             
@@ -115,6 +117,9 @@
             Grid.Row="2"
             Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -135,7 +140,10 @@
                 Text="Back to Home"
                 Clicked="GoBack"
             />
+            <Label Grid.Row ="3" Text="Total In Cart: "/>
+            <Label Grid.Row ="5" Text="{Binding TotalInCart}"/>
             <!--</Grid>-->
+            
         </Grid>
     </VerticalStackLayout>
 

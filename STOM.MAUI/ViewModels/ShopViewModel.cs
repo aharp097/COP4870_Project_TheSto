@@ -36,11 +36,30 @@ namespace STOM.MAUI.ViewModels
         {
             get
             {
-                return ContactServerProxy.Current.Products.Where(p => p != null || p.Stock > 0)
+                return ContactServerProxy.Current.Products.Where(p => p != null && p.Stock > 0)
                     .Where(p => p?.Name?.ToUpper()?.Contains(InventoryQuery.ToUpper()) ?? false)
                     .Select(p => new ProductViewModel(p)).ToList()
                     ?? new List<ProductViewModel>();
             }
+        }
+        public string TotalInCart
+        {
+            get
+            {
+                decimal total = 0;
+                decimal track = 0;
+                if (PIC == null)
+                {
+                    return "$0.00";
+                }
+                foreach (var item in PIC)
+                {
+                    track = item.Price * item.Stock;
+                    total += track;
+                }
+                return total.ToString("C");
+            }
+            
         }
 
         public List<ProductViewModel> PIC
@@ -109,8 +128,11 @@ namespace STOM.MAUI.ViewModels
 
             SelectedProduct = null;
             NotifyPropertyChanged(nameof(PIC));
+            NotifyPropertyChanged(nameof(TotalInCart));
             NotifyPropertyChanged(nameof(Products));
         }
+
+        
     }
 
 }

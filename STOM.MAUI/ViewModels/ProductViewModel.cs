@@ -52,6 +52,28 @@ namespace STOM.MAUI.ViewModels
                 }
             }
         }
+        public decimal Price
+        {
+            get
+            {
+                if (Model == null)
+                {
+                    return 0;
+                }
+                return Model.Price;
+            }
+        }
+        public int Stock
+        {
+            get
+            {
+                if (Model == null)
+                {
+                    return 0;
+                }
+                return Model.Stock!.Value;
+            }
+        }
 
         private void ExecuteEdit(ProductViewModel? p)
         {
