@@ -28,4 +28,9 @@
     ContentTemplate="{DataTemplate views:ProductView}"
     Route="Product" />
 
+    <ShellContent
+    Title="The Sto"
+    ContentTemplate="{DataTemplate views:TaxView}"
+    Route="TaxationIsTheft" />
+
 </Shell>

@@ -67,6 +67,10 @@
             Clicked="AddClicked"
             />
         <Button
+        Text="SetTax"
+        Clicked="SetTax_Clicked"
+        />
+        <Button
             Text="Back to Home"
             Clicked="GoBack"
             />

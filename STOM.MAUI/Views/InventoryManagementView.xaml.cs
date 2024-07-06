@@ -37,4 +37,8 @@ public partial class InventoryManagementView : ContentPage
     {
         (BindingContext as InventoryManagementViewModel)?.RefreshInventory();
     }
+    private void SetTax_Clicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//TaxationIsTheft");
+    }
 }

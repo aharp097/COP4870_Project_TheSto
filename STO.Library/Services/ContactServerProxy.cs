@@ -23,6 +23,7 @@ namespace STO.Library.Services
         }
         private static ContactServerProxy? instance;
         private static object instanceLock = new object();
+        public decimal tax = 0;
         public static ContactServerProxy Current
         {
             get
@@ -101,5 +102,11 @@ namespace STO.Library.Services
             return productToReturn;
         }
 
+        public void SetTax(decimal t)
+        {
+            tax = t;
+
+
+        }
     }
 }
