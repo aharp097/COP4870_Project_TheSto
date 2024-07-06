@@ -16,6 +16,9 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Text="Id" Grid.Row="0" Grid.Column="0"/>
             <Label Text="{Binding Model.Id}" Grid.Row="0" Grid.Column="1"/>
@@ -28,6 +31,15 @@
 
             <Label Text="Quantity" Grid.Row="3" Grid.Column="0"/>
             <Entry Text="{Binding Model.Stock}" Grid.Row="3" Grid.Column="1"/>
+            
+            <Label Text="Marked Down?" Grid.Row="4" Grid.Column="0"/>
+            <Entry Text="{Binding Model.MarkedDown}" Grid.Row="4" Grid.Column="1"/>
+            
+            <Label Text="Markdown Percent:" Grid.Row="5" Grid.Column="0"/>
+            <Entry Text="{Binding Model.MarkDownPercent}" Grid.Row="5" Grid.Column="1"/>
+            
+            <Label Text="BOGO?" Grid.Row="6" Grid.Column="0"/>
+            <Entry Text="{Binding Model.Bogo}" Grid.Row="6" Grid.Column="1"/>
         </Grid>
         <Button Text="Ok" Clicked="OkClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked"/>

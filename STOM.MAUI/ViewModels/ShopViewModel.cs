@@ -54,6 +54,14 @@ namespace STOM.MAUI.ViewModels
                 }
                 foreach (var item in PIC)
                 {
+                    if (item.Bogo == true)
+                    {
+                        track = item.Price * item.Stock;
+                        track = track / 2;
+                    } else if (item.Markdown == true)
+                    {
+
+                    }
                     track = item.Price * item.Stock;
                     total += track;
                 }

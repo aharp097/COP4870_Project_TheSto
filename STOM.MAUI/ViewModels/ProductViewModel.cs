@@ -17,7 +17,22 @@ namespace STOM.MAUI.ViewModels
             {
                 return string.Empty;
             }
-            return $"[{Model.Id}] {Model.Name} - {Model.Price.ToString("C2")} \n{Model.Description} \nIn Stock: {Model.Stock} \n";
+            string discounts;
+            string bogo = "";
+            if(Model.Bogo == true)
+            {
+                bogo = "This item is on BOGO!";
+            }
+            if (Model.MarkedDown == true)
+            {
+                decimal result;
+                result = Model.MarkDownPercent / 100;
+                result = Model.Price * result;
+                result = Model.Price - result;
+                return $"[{Model.Id}] {Model.Name} - ON SALE: {result.ToString("C2")} from {Model.Price.ToString("C2")} \n {bogo} \n{Model.Description} \nIn Stock: {Model.Stock} \n";
+            }
+
+            return $"[{Model.Id}] {Model.Name} - {Model.Price.ToString("C2")}\n {bogo}\n{Model.Description} \nIn Stock: {Model.Stock} \n";
         }
         public ICommand EditCommand {  get; private set; }
 

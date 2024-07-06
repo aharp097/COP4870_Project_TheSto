@@ -19,6 +19,11 @@ namespace STO.Models
             
         }
 
+        public bool Bogo { get; set; }
+
+        public bool MarkedDown { get; set; }
+        public decimal MarkDownPercent { get; set; }
+
         public Product(Product p)
         {
             Name = p.Name;
