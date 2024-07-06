@@ -54,15 +54,28 @@ namespace STOM.MAUI.ViewModels
                 }
                 foreach (var item in PIC)
                 {
-                    if (item.Bogo == true)
+                    if (item?.Model?.Bogo == true)
+                    {
+                        for (int i = 0; i < item.Stock; i++)
+                        {
+                            if (i%2  == 0)
+                            {
+                                track = item.Price + track;
+                            }
+                        }
+                        
+                    } else if (item?.Model?.MarkedDown == true)
+                    {
+                        track = item.Model.MarkDownPercent / 100;
+                        track = item.Price * track;
+                        track = item.Price - track;
+                        track = track * item.Stock;
+                    }
+                    else
                     {
                         track = item.Price * item.Stock;
-                        track = track / 2;
-                    } else if (item.Markdown == true)
-                    {
-
                     }
-                    track = item.Price * item.Stock;
+                    
                     total += track;
                 }
                 return total.ToString("C");

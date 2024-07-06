@@ -31,6 +31,9 @@ namespace STO.Models
             Price = p.Price;
             Id = p.Id;
             Stock = p.Stock;
+            Bogo = p.Bogo;
+            MarkedDown = p.MarkedDown;
+            MarkDownPercent = p.MarkDownPercent;
         }
     }
 }
