@@ -33,4 +33,9 @@
     ContentTemplate="{DataTemplate views:TaxView}"
     Route="TaxationIsTheft" />
 
+    <ShellContent
+    Title="The Sto"
+    ContentTemplate="{DataTemplate views:CartView}"
+    Route="Cart" />
+
 </Shell>

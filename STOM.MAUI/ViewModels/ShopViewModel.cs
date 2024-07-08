@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using STO.Library.Models;
 using STO.Library.Services;
 using STO.Models;
@@ -16,6 +17,8 @@ namespace STOM.MAUI.ViewModels
         public ShopViewModel()
         {
             InventoryQuery = string.Empty;
+            Cart = new ShoppingCart();
+            SetupCommands();
         }
 
         private string inventoryQuery;
@@ -36,12 +39,33 @@ namespace STOM.MAUI.ViewModels
         {
             get
             {
-                return ContactServerProxy.Current.Products.Where(p => p != null && p.Stock > 0)
-                    .Where(p => p?.Name?.ToUpper()?.Contains(InventoryQuery.ToUpper()) ?? false)
-                    .Select(p => new ProductViewModel(p)).ToList()
+                //return ContactServerProxy.Current.Products.Where(p => p != null && p.Stock > 0)
+                //    .Where(p => p?.Name?.ToUpper()?.Contains(InventoryQuery.ToUpper()) ?? false)
+                //    .Select(p => new ProductViewModel(p)).ToList()
+                //    ?? new List<ProductViewModel>();
+                return ContactServerProxy.Current.Products.Where(p => p != null && p.Stock > 0).Select(p => new ProductViewModel(p)).ToList()
                     ?? new List<ProductViewModel>();
             }
         }
+        public ShopViewModel(int id)
+        {
+            ShoppingCartService.Current.currentID = id;
+            Cart = ShoppingCartService.Current?.Carts?.FirstOrDefault(c => c.Id == id);
+            if (Cart == null)
+            {
+                Cart = new ShoppingCart();
+            }
+        }
+
+        public ShopViewModel(ShoppingCart? c)
+        {
+            Cart = c;
+            SetupCommands();
+        }
+        public ICommand EditCommand { get; private set; }
+
+        public ICommand? DeleteCommand { get; private set; }
+        public ShoppingCart? Cart { get; set; }
         public string TotalInCart
         {
             get
@@ -87,8 +111,11 @@ namespace STOM.MAUI.ViewModels
         {
             get
             {
+                //return ShoppingCartService.Current?.Cart?.Contents?.Where(p => p != null)
+                //    .Where(p => p?.Name?.ToUpper()?.Contains(InventoryQuery.ToUpper()) ?? false).Select(p => new ProductViewModel(p)).ToList()
+                //    ?? new List<ProductViewModel>();
                 return ShoppingCartService.Current?.Cart?.Contents?.Where(p => p != null)
-                    .Where(p => p?.Name?.ToUpper()?.Contains(InventoryQuery.ToUpper()) ?? false).Select(p => new ProductViewModel(p)).ToList()
+                    .Select(p => new ProductViewModel(p)).ToList()
                     ?? new List<ProductViewModel>();
 
             }
@@ -114,13 +141,14 @@ namespace STOM.MAUI.ViewModels
                 
             }
         }
-        public ShoppingCart Cart {  
-            get
-            {
-                return ShoppingCartService.Current.Cart;
+        //public ShoppingCart Cart {  
+        //    get
+        //    {
+        //        return ShoppingCartService.Current.Cart;
 
-            }
-        }
+        //    }
+        //}
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -152,8 +180,32 @@ namespace STOM.MAUI.ViewModels
             NotifyPropertyChanged(nameof(TotalInCart));
             NotifyPropertyChanged(nameof(Products));
         }
+        public void SetupCommands()
+        {
+            EditCommand = new Command((p) => ExecuteEdit(p as ShopViewModel));
+            DeleteCommand = new Command((p) => ExecuteDelete((p as ShopViewModel)?.Cart?.Id));
 
-        
+        }
+        private void ExecuteEdit(ShopViewModel ? c)
+        {
+            if (c?.Cart == null)
+            {
+                return;
+            }
+            Shell.Current.GoToAsync($"//Shop?cartId={c.Cart.Id}");
+            //ShoppingCartService.Current.AddOrUpdate(SelectedCart.Cart);
+        }
+
+        private void ExecuteDelete(int? id)
+        {
+            if (id == null)
+            {
+                return;
+            }
+            ShoppingCartService.Current.Delete(id ?? 0);
+        }
+
+
     }
 
 }

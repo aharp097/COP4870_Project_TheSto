@@ -1,19 +1,22 @@
+using STO.Library.Services;
 using STO.Models;
 using STOM.MAUI.ViewModels;
 
 namespace STOM.MAUI.Views;
-
+[QueryProperty(nameof(CartId), "cartId")]
 public partial class ShopView : ContentPage
 {
-	public ShopView()
+    public int CartId { get; set; }
+    public ShopView()
 	{
 		InitializeComponent();
-        BindingContext = new ShopViewModel();
+        //BindingContext = new ShopViewModel(CartId);
     }
 
     private void GoBack(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//MainPage");
+      //  BindingContext = null;
+        Shell.Current.GoToAsync("//Cart");
     }
 
     private void Search_Clicked(object sender, EventArgs e)
@@ -33,6 +36,7 @@ public partial class ShopView : ContentPage
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-        (BindingContext as ShopViewModel).RefreshInventory();
+        ShoppingCartService.Current.currentID = CartId;
+        BindingContext = new ShopViewModel(CartId);
     }
 }
