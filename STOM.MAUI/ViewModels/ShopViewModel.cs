@@ -55,6 +55,7 @@ namespace STOM.MAUI.ViewModels
             {
                 Cart = new ShoppingCart();
             }
+            NotifyPropertyChanged(nameof(Products));
         }
 
         public ShopViewModel(ShoppingCart? c)
@@ -202,8 +203,31 @@ namespace STOM.MAUI.ViewModels
             {
                 return;
             }
+            var test = new Product();
+            foreach (var item in PIC)
+            {
+                ShoppingCartService.Current.RestoreProduct(item.Model);
+                //test = ContactServerProxy.Current?.Get(item.Model.Id);
+                //item.Model.Stock +=test?.Stock;
+                //ContactServerProxy.Current.AddOrUpdate(item.Model);
+
+            }
+
+            NotifyPropertyChanged(nameof(PIC));
+            NotifyPropertyChanged(nameof(TotalInCart));
+            NotifyPropertyChanged(nameof(Products));
             ShoppingCartService.Current.Delete(id ?? 0);
         }
+        public void CheckOut()
+        {
+            if (Cart?.Contents == null)
+            {
+                return;
+            }
+            Shell.Current.GoToAsync($"//Checkout?cartId={Cart.Id}");
+            //ShoppingCartService.Current.Delete(Cart.Id);
+        }
+
 
 
     }

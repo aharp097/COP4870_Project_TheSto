@@ -38,4 +38,8 @@
     ContentTemplate="{DataTemplate views:CartView}"
     Route="Cart" />
 
+    <ShellContent
+    Title="The Sto"
+    ContentTemplate="{DataTemplate views:CheckoutView}"
+    Route="Checkout" />
 </Shell>

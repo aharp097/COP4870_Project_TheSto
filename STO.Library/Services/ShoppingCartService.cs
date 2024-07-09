@@ -140,6 +140,30 @@ namespace STO.Library.Services
                 Cart?.Contents.Add(newp);
             }
         }
+        public void RestoreProduct(Product newp)
+        {
+            if (Cart == null || Cart.Contents == null)
+            {
+                return;
+            }
+
+            var oldp = Cart?.Contents?.FirstOrDefault(oldps => oldps.Id == newp.Id);
+
+            var inventoryp = ContactServerProxy.Current.Products.FirstOrDefault(invProd => invProd.Id == newp.Id);
+            if (inventoryp == null)
+            {
+                return;
+            }
+            inventoryp.Stock += newp.Stock;
+            if (oldp != null)
+            {
+                oldp.Stock -= newp.Stock;
+            }
+            //else
+            //{
+            //    Cart?.Contents.Add(newp);
+            //}
+        }
 
 
 

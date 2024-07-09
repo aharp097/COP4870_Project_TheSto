@@ -31,7 +31,7 @@ public partial class ShopView : ContentPage
 
     private void Checkout_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as ShopViewModel).Search();
+        (BindingContext as ShopViewModel).CheckOut();
     }
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)

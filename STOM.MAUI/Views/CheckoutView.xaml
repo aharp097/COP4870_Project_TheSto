@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="STOM.MAUI.Views.CheckoutView"
+             Title="TheSto"
+             NavigatedTo="ContentPage_NavigatedTo">
+    <VerticalStackLayout>
+        <Label Grid.Column="0"
+        Text="Checkout"
+        FontSize="Large"
+        />
+        <ListView
+            ItemsSource="{Binding PIC}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+
+
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="1" Text="{Binding Display}" />
+                                <!--<Label Grid.Column="2" Text="{Binding Model.Name}" FontAttributes="Bold"/>
+                                <Label Grid.Column="3" Text="{Binding Model.Description}"/>
+                                <Label Grid.Column="3" Text="{Binding DisplayPrice}"/>
+                                <Label Grid.Column="4" Text="{Binding Model.Stock}"/>-->
+                                <!--<Button Grid.Column="5" 
+                                    Text="Edit"
+                                    Command="{Binding Path=EditCommand}"
+                                    CommandParameter="{Binding}"
+                                    />
+                                <Button Grid.Column="6" 
+                                    Text="Delete"
+                                    Command="{Binding Path=DeleteCommand}"
+                                    CommandParameter="{Binding}"
+                                    Clicked="InlineDelete_Clicked"
+                                    ></Button>-->
+                            </Grid>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--<Button
+            Text="Add"
+            Clicked="AddClicked"
+            />-->
+        <Label Text="Total In Cart: "/>
+        <Label Text="{Binding TotalInCart}"/>
+        <Label Text="Total With Tax: "/>
+        <Label Text="{Binding TotalWithTax}"/>
+        <Button
+        Text="Complete Transaction"
+        Clicked="CompleteTransaction"
+        />
+        <Button
+            Text="Back to Home"
+            Clicked="GoBack"
+            />
+    </VerticalStackLayout>
+
+</ContentPage>
