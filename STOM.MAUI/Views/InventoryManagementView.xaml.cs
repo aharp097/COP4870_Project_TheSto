@@ -35,6 +35,7 @@ public partial class InventoryManagementView : ContentPage
     }
     private void InlineDelete_Clicked(object sender, EventArgs e)
     {
+        //TODO:Figure out how to refresh AFTER delete is finished executing
         (BindingContext as InventoryManagementViewModel)?.RefreshInventory();
     }
     private void SetTax_Clicked(object sender, EventArgs e)

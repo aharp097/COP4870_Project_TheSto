@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using STO.Library.DTO;
 using STO.Library.Models;
 using STO.Library.Services;
 using STO.Models;
@@ -132,10 +133,10 @@ namespace STOM.MAUI.ViewModels
                 selectedProduct = value;
                 if (selectedProduct != null && selectedProduct.Model == null)
                 {
-                    selectedProduct.Model = new Product();
+                    selectedProduct.Model = new ProductDTO();
                 } else if (selectedProduct != null && selectedProduct.Model != null) 
                 {
-                    selectedProduct.Model = new Product(selectedProduct.Model);
+                    selectedProduct.Model = new ProductDTO(selectedProduct.Model);
                 }
 
                 NotifyPropertyChanged();

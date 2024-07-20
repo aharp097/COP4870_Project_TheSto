@@ -23,8 +23,9 @@ namespace STOM.MAUI.ViewModels
         }
         public ProductViewModel SelectedProduct { get; set; }
 
-        public void RefreshInventory()
+        public async void RefreshInventory()
         {
+            await ContactServerProxy.Current.Get();
             NotifyPropertyChanged(nameof(Products));
         }
         public void UpdateProduct()
@@ -36,14 +37,14 @@ namespace STOM.MAUI.ViewModels
             Shell.Current.GoToAsync($"//Product?ProductId={SelectedProduct.Model.Id}");
             ContactServerProxy.Current.AddOrUpdate(SelectedProduct.Model);
         }
-        public void DeleteProduct()
+        public async void DeleteProduct()
         {
             if (SelectedProduct?.Model == null)
             {
                 return;
             }
 
-            ContactServerProxy.Current.Delete(SelectedProduct.Model.Id);
+            await ContactServerProxy.Current.Delete(SelectedProduct?.Model?.Id ?? 0);
             RefreshInventory();
         }
     }

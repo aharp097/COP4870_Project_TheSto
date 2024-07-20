@@ -3,29 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using STO.Library.DTO;
+using STO.Models;
 
-namespace STO.Models
+namespace STO.Library.DTO
 {
-    public class Product
-    {   
+    public class ProductDTO
+    {
         public string? Name { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public int Id { get; set; }
         public int? Stock { get; set; }
-        public Product()
-        {
-            
-        }
-
         public bool Bogo { get; set; }
 
         public bool MarkedDown { get; set; }
         public decimal MarkDownPercent { get; set; }
 
-        public Product(Product p)
+        public ProductDTO()
+        {
+
+        }
+        public ProductDTO(Product p)
         {
             Name = p.Name;
             Description = p.Description;
@@ -37,7 +35,7 @@ namespace STO.Models
             MarkDownPercent = p.MarkDownPercent;
         }
 
-        public Product(ProductDTO p)
+        public ProductDTO(ProductDTO p)
         {
             Name = p.Name;
             Description = p.Description;

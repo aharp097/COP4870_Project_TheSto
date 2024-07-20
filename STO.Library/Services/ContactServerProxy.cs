@@ -5,21 +5,22 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Newtonsoft.Json;
+using STO.Library.Utilities;
+using STO.Library.DTO;
 
 namespace STO.Library.Services
-{
+{//vid19
     public class ContactServerProxy
     {
         private ContactServerProxy() 
         {
-            products = new List<Product>
-            {
-                new Product{Id = 1,Name = "Product 1", Price=1.75M, Stock=1}
-                , new Product{Id = 2,Name = "Product 2", Price=10M, Stock=10}
-                , new Product{Id = 3,Name = "Product 3", Price=137.11M, Stock=100}
-            };
+            
+            var response = new WebRequestHandler().Get("/Inventory").Result;
+            products = JsonConvert.DeserializeObject<List<ProductDTO>>(response);
         }
         private static ContactServerProxy? instance;
         private static object instanceLock = new object();
@@ -39,13 +40,21 @@ namespace STO.Library.Services
                 return instance;
             }
         }
-        private List<Product>? products;
-        public ReadOnlyCollection<Product>? Products
+        private List<ProductDTO>? products;
+        public ReadOnlyCollection<ProductDTO>? Products
         { 
             get 
             { 
                 return products?.AsReadOnly(); 
             } 
+        }
+
+        public async Task<IEnumerable<ProductDTO>> Get()
+        {
+            var result = await new WebRequestHandler().Get("/Inventory");
+            var deserializedResult = JsonConvert.DeserializeObject<List<ProductDTO>>(result);
+            products = deserializedResult?.ToList() ?? new List<ProductDTO>();
+            return products;
         }
                                                  //functionality
         public int LastID
@@ -59,40 +68,29 @@ namespace STO.Library.Services
                 return 0;
             }
         }
-        public Product? AddOrUpdate(Product? product)
+        public async Task<ProductDTO?> AddOrUpdate(ProductDTO? product)
         {
-            if(products == null)
-            {
-                return null;
-            }
-            var isAdd = false;
-            if (product.Id == 0)
-            {
-                product.Id = LastID + 1;
-                isAdd = true;
-            }
-            if (isAdd)
-            {
-                products.Add(product);
-            }
-            
 
-            return product;
+            var result = await new WebRequestHandler().Post("/Inventory", product);
+            return JsonConvert.DeserializeObject<ProductDTO>(result);
         }
 
-        public void Delete(int id)
+        public async Task<ProductDTO?> Delete(int id)
         {
-            if (products == null)
-            {
-                return;
-            }
-            var productToDelete = products.FirstOrDefault(p => p.Id == id);
-            if (productToDelete != null)
-            {
-                products.Remove(productToDelete);
-            }
+            //if (products == null)
+            //{
+            //    return;
+            //}
+            //var productToDelete = products.FirstOrDefault(p => p.Id == id);
+            //if (productToDelete != null)
+            //{
+            //    products.Remove(productToDelete);
+            //}
+            var response = await new WebRequestHandler().Delete($"/{id}");
+            var productToDelete = JsonConvert.DeserializeObject<ProductDTO>(response);
+            return productToDelete;
         }
-        public Product? Get(int id)
+        public ProductDTO? Get(int id)
         {
             if (products == null)
             {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using STO.Library.DTO;
 using STO.Library.Services;
 using STO.Models;
 
@@ -38,7 +39,7 @@ namespace STOM.MAUI.ViewModels
 
         public ICommand? DeleteCommand { get; private set; }
 
-        public Product? Model { get; set; }
+        public ProductDTO? Model { get; set; }
             
         public string DisplayPrice
         {
@@ -99,21 +100,22 @@ namespace STOM.MAUI.ViewModels
             Shell.Current.GoToAsync($"//Product?productId={p.Model.Id}");
         }
 
-        private void ExecuteDelete(int? id)
+        private async void ExecuteDelete(int? id)
         {
             if (id == null)
             {
                 return;
             }
 
-            ContactServerProxy.Current.Delete(id ?? 0);
+            await ContactServerProxy.Current.Delete(id ?? 0);
+            
         }
 
-        public void Add()
+        public async void Add()
         {
             if (Model != null)
             {
-                ContactServerProxy.Current.AddOrUpdate(Model);
+                Model = await ContactServerProxy.Current.AddOrUpdate(Model);
             }
             
         }
@@ -134,7 +136,7 @@ namespace STOM.MAUI.ViewModels
         }
         public ProductViewModel() 
         {
-            Model = new Product();
+            Model = new ProductDTO();
             SetupCommands();
         }
                 
@@ -143,10 +145,10 @@ namespace STOM.MAUI.ViewModels
             Model = ContactServerProxy.Current?.Products?.FirstOrDefault(p => p.Id == id);
             if(Model == null)
             {
-                Model = new Product();
+                Model = new ProductDTO();
             }
         }
-        public ProductViewModel(Product? p)
+        public ProductViewModel(ProductDTO? p)
         {
             Model = p;
             SetupCommands();

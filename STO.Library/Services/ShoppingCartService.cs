@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using STO.Library.DTO;
 using STO.Library.Models;
 using STO.Models;
 
@@ -116,7 +117,7 @@ namespace STO.Library.Services
             return cartToReturn;
         }
 
-        public void AddToCart(Product newp)
+        public void AddToCart(ProductDTO newp)
         {
             if (Cart == null || Cart.Contents == null)
             {
@@ -140,7 +141,7 @@ namespace STO.Library.Services
                 Cart?.Contents.Add(newp);
             }
         }
-        public void RestoreProduct(Product newp)
+        public void RestoreProduct(ProductDTO newp)
         {
             if (Cart == null || Cart.Contents == null)
             {

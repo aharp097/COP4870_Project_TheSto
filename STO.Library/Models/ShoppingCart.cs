@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using STO.Library.DTO;
 using STO.Models;
 
 namespace STO.Library.Models
@@ -13,18 +14,18 @@ namespace STO.Library.Models
         public string? Name { get; set; }
         public int Id { get; set; }
         
-        public List<Product>? Contents { get; set; }
+        public List<ProductDTO>? Contents { get; set; }
 
         public ShoppingCart() 
         { 
-            Contents = new List<Product>();
+            Contents = new List<ProductDTO>();
         }
 
         public ShoppingCart(ShoppingCart c)
         {
             if (c.Contents == null)
             {
-                Contents = new List<Product>();
+                Contents = new List<ProductDTO>();
             }
             else
             {
