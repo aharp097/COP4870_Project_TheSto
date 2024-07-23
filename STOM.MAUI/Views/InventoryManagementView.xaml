@@ -71,6 +71,10 @@
         Clicked="SetTax_Clicked"
         />
         <Button
+         Text="Import CSV"
+         Clicked="Import_Clicked"
+         />
+        <Button
             Text="Back to Home"
             Clicked="GoBack"
             />

@@ -42,4 +42,8 @@ public partial class InventoryManagementView : ContentPage
     {
         Shell.Current.GoToAsync("//TaxationIsTheft");
     }
+    private void Import_Clicked(object sender, EventArgs e)
+    {
+        (BindingContext as InventoryManagementViewModel)?.Import();
+    }
 }
