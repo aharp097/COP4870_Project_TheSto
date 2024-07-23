@@ -140,6 +140,7 @@ namespace STO.Library.Services
             {
                 Cart?.Contents.Add(newp);
             }
+            ContactServerProxy.Current.AddOrUpdate(inventoryp);
         }
         public void RestoreProduct(ProductDTO newp)
         {
@@ -160,6 +161,7 @@ namespace STO.Library.Services
             {
                 oldp.Stock -= newp.Stock;
             }
+            ContactServerProxy.Current.AddOrUpdate(inventoryp);
             //else
             //{
             //    Cart?.Contents.Add(newp);
