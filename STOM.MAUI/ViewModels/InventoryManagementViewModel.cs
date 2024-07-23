@@ -47,5 +47,32 @@ namespace STOM.MAUI.ViewModels
             await ContactServerProxy.Current.Delete(SelectedProduct?.Model?.Id ?? 0);
             RefreshInventory();
         }
+        private ProductDTO? ImportModel { get; set; }
+        public async void Import(string path)
+        {
+            var csv = (@"C:\Users\amark\Documents\College\COP4870\Inventory.csv");
+
+            using (var reader = new StreamReader(csv)) 
+            {
+                while(reader.EndOfStream == false)
+                {
+                    var content = reader.ReadLine();
+                    var cell = content.Split(',').ToList();
+                    if(cell.Any(c => c.Length > 0))
+                    {
+                        ImportModel = new ProductDTO();
+                        ImportModel.Name = cell[0];
+                        ImportModel.Description = cell[1];
+                        ImportModel.Price = decimal.Parse(cell[2]);
+                        ImportModel.Stock = int.Parse(cell[3]);
+                        ImportModel.Bogo = bool.Parse(cell[4]);
+                        ImportModel.MarkedDown = bool.Parse(cell[5]);
+                        ImportModel.MarkDownPercent = decimal.Parse(cell[6]);
+                        await ContactServerProxy.Current.AddOrUpdate(ImportModel);
+                    }
+
+                }
+            }
+        }
     }
 }
