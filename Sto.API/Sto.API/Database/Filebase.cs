@@ -45,26 +45,20 @@ namespace Sto.API.Database
 
         public Product AddOrUpdate(Product product)
         {
-            //set up a new Id if one doesn't already exist
             if(product.Id <= 0)
             {
-                product.Id = LastID;
+                product.Id = LastID+1;
             }
 
-            //go to the right place]
             string path = $"{_root}\\{product.Id}.json";
 
-            //if the item has been previously persisted
             if(File.Exists(path))
             {
-                //blow it up
                 File.Delete(path);
             }
 
-            //write the file
             File.WriteAllText(path, JsonConvert.SerializeObject(product));
 
-            //return the item, which now has an id
             return product;
         }
 
@@ -89,7 +83,16 @@ namespace Sto.API.Database
         public Product Delete(int id)
         {
             //TODO: refer to AddOrUpdate for an idea of how you can implement this.
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            string path = $"{_root}\\{id}.json";
+            if (File.Exists(path))
+            {
+                var content = File.ReadAllText(path);
+                var prod = JsonConvert.DeserializeObject<Product>(content);
+                File.Delete(path);
+                return prod;
+            }
+            return null;
         }
     }
 

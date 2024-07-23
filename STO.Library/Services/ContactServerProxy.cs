@@ -103,8 +103,6 @@ namespace STO.Library.Services
         public void SetTax(decimal t)
         {
             tax = t;
-
-
         }
     }
 }
