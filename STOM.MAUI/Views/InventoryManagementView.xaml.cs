@@ -44,6 +44,6 @@ public partial class InventoryManagementView : ContentPage
     }
     private void Import_Clicked(object sender, EventArgs e)
     {
-        (BindingContext as InventoryManagementViewModel)?.Import();
+        Shell.Current.GoToAsync("//Import");
     }
 }

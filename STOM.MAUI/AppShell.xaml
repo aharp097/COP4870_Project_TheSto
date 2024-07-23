@@ -42,4 +42,8 @@
     Title="The Sto"
     ContentTemplate="{DataTemplate views:CheckoutView}"
     Route="Checkout" />
+    <ShellContent
+     Title="The Sto"
+     ContentTemplate="{DataTemplate views:ImportView}"
+     Route="Import" />
 </Shell>
