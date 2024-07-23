@@ -1,7 +1,7 @@
-﻿using STO.Library.DTO;
-using STO.Library.Services;
+﻿using STO.Library.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using STO.Library.DTO;
 
 namespace STOM.MAUI.ViewModels
 { 
@@ -52,6 +52,7 @@ namespace STOM.MAUI.ViewModels
         public async void Import()
         {
             var csv = (@"C:\Users\amark\Documents\College\COP4870\Inventory.csv");
+
             using (var reader = new StreamReader(csv)) 
             {
                 while(reader.EndOfStream == false)
