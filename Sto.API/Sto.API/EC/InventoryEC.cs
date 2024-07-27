@@ -12,7 +12,8 @@ namespace Sto.API.EC
         }
         public async Task<IEnumerable<ProductDTO>> Get()
         {
-            return Filebase.Current.Products.Take(70).Select(p => new ProductDTO(p)); 
+            //return Filebase.Current.Products.Take(70).Select(p => new ProductDTO(p)); 
+            return new MSSQLContext().GetProducts().Select(p => new ProductDTO(p));
         }
         public async Task<ProductDTO?> Delete(int id)
         {
@@ -20,12 +21,13 @@ namespace Sto.API.EC
             //{
             //    return null;
             //}
-            return new ProductDTO(Filebase.Current.Delete(id));
+            //return new ProductDTO(Filebase.Current.Delete(id));
             //if (productToDelete != null)
             //{
             //    Filebase.Current.Products.Remove(productToDelete);
             //}
             //return new ProductDTO(productToDelete);
+            return new ProductDTO(new MSSQLContext().Delete(id));
         }
         public async Task<ProductDTO> AddOrUpdate(ProductDTO p)
         {
@@ -51,8 +53,8 @@ namespace Sto.API.EC
             //}
 
 
-            return new ProductDTO(Filebase.Current.AddOrUpdate(new Product(p)));
-            
+            //return new ProductDTO(Filebase.Current.AddOrUpdate(new Product(p)));
+            return new ProductDTO(new MSSQLContext().AddProduct(new Product(p)));
         }
     
     }
