@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Windows.Input;
 using Microsoft.Data.SqlClient;
 using STO.Models;
 
@@ -10,49 +11,94 @@ namespace Sto.API.Database
         {
             using(SqlConnection con = new SqlConnection("Server=DESKTOP-EDGHUB0;Database=StoDB;Trusted_Connection=yes;TrustServerCertificate=True"))
             {
-                using (SqlCommand command = con.CreateCommand())
+                using (SqlCommand fetchcommand = con.CreateCommand())
                 {
-                    var sql = $"Product.InsertProduct";
-                    command.CommandText = sql ;
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("Name", p.Name));
-                    command.Parameters.Add(new SqlParameter("Description", p.Description));
-                    command.Parameters.Add(new SqlParameter("Price", p.Price));
-                    command.Parameters.Add(new SqlParameter("Stock", p.Stock));
-                    if (p.Bogo == true)
-                    {
-                        command.Parameters.Add(new SqlParameter("Bogo", 1));
-                    }
-                    else
-                    {
-                        command.Parameters.Add(new SqlParameter("Bogo", 0));
-                    }
-                    if (p.MarkedDown == true)
-                    {
-                        command.Parameters.Add(new SqlParameter("Bogo", 1));
-                    }
-                    else
-                    {
-                        command.Parameters.Add(new SqlParameter("Bogo", 0));
-                    }
+                    var sql = $"SELECT COUNT(1) FROM PRODUCT WHERE Id = @Id";
 
-                    command.Parameters.Add(new SqlParameter("MarkdownPercent", p.MarkDownPercent));
-                   // command.Parameters.Add(new SqlParameter("Id", p.Id));
-                   var id = new SqlParameter("Id", p.Id);
-                    id.Direction = ParameterDirection.Output;
-                    command.Parameters.Add(id);
+                    fetchcommand.CommandType = CommandType.Text;
+                    fetchcommand.CommandText = sql;
+                    fetchcommand.Parameters.Add(new SqlParameter("@Id", p.Id));
+                    int found = 0;
                     try
                     {
 
                         con.Open();
-                        command.ExecuteNonQuery();
+                        found = (int)fetchcommand.ExecuteScalar();
                         con.Close();
-                        p.Id = (int)id.Value;
                     }
-                    catch (Exception ex) 
-                    { 
+                    catch (Exception ex)
+                    {
 
                     }
+                    
+                    if (found > 0)
+                    {
+                        using (SqlCommand updateCommand = con.CreateCommand())
+                        {
+                            var usql = $"Product.UpdateProduct";
+                            updateCommand.CommandText = usql;
+                            updateCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                            updateCommand.Parameters.Add(new SqlParameter("@Id", p.Id));
+                            updateCommand.Parameters.Add(new SqlParameter("@Name", p.Name));
+                            updateCommand.Parameters.Add(new SqlParameter("@Description", p.Description));
+                            updateCommand.Parameters.Add(new SqlParameter("@Price", p.Price));
+                            updateCommand.Parameters.Add(new SqlParameter("@Stock", p.Stock));
+                            updateCommand.Parameters.Add(new SqlParameter("@Bogo", p.Bogo));
+                            updateCommand.Parameters.Add(new SqlParameter("@MarkedDown", p.MarkedDown));
+                            updateCommand.Parameters.Add(new SqlParameter("@MarkDownPercent", p.MarkDownPercent));
+                            try
+                            {
+
+                                con.Open();
+                                updateCommand.ExecuteNonQuery();
+                                con.Close();
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        using (SqlCommand command = con.CreateCommand())
+                        {
+                            var isql = $"Product.InsertProduct";
+                            command.CommandText = isql;
+                            command.CommandType = System.Data.CommandType.StoredProcedure;
+                            command.Parameters.Add(new SqlParameter("@Name", p.Name));
+                            command.Parameters.Add(new SqlParameter("@Description", p.Description));
+                            command.Parameters.Add(new SqlParameter("@Price", p.Price));
+                            command.Parameters.Add(new SqlParameter("@Stock", p.Stock));
+                            command.Parameters.Add(new SqlParameter("@Bogo", p.Bogo));
+                            command.Parameters.Add(new SqlParameter("@MarkedDown", p.MarkedDown));
+
+                        
+                       
+
+                        command.Parameters.Add(new SqlParameter("@MarkdownPercent", p.MarkDownPercent));
+                        var id = new SqlParameter("Id", p.Id);
+                        id.Direction = ParameterDirection.Output;
+                        command.Parameters.Add(id);
+                        try
+                        {
+
+                            con.Open();
+                            command.ExecuteNonQuery();
+                            con.Close();
+                            p.Id = (int)id.Value;
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                    
+                }
+                
                 }
 
             }
@@ -77,23 +123,23 @@ namespace Sto.API.Database
 
                         while (reader.Read())
                         {
-                            bool bg, md;
-                            if ((int)reader["Bogo"] == 1)
-                            {
-                                bg = true;
-                            }
-                            else
-                            {
-                                bg = false;
-                            }
-                            if ((int)reader["MarkedDown"] == 1)
-                            {
-                                md = true;
-                            }
-                            else
-                            {
-                                md = false;
-                            }
+                            //bool bg, md;
+                            //if ((int)reader["Bogo"] == 1)
+                            //{
+                            //    bg = true;
+                            //}
+                            //else
+                            //{
+                            //    bg = false;
+                            //}
+                            //if ((int)reader["MarkedDown"] == 1)
+                            //{
+                            //    md = true;
+                            //}
+                            //else
+                            //{
+                            //    md = false;
+                            //}
                             products.Add(new Product
                             {
                                 Id = (int)reader["Id"],
@@ -101,8 +147,8 @@ namespace Sto.API.Database
                                 Description = reader["Description"].ToString(),
                                 Price = (decimal)reader["Price"],
                                 Stock = (int)reader["Stock"],
-                                Bogo = bg,
-                                MarkedDown = md,
+                                Bogo = (bool)reader["Bogo"],
+                                MarkedDown = (bool)reader["MarkedDown"],
                                 MarkDownPercent = (int)reader["MarkDownPercent"]
                             });
                         }
@@ -129,6 +175,7 @@ namespace Sto.API.Database
 
                     fetchcommand.CommandType = CommandType.Text;
                     fetchcommand.CommandText = sql;
+                    fetchcommand.Parameters.Add(new SqlParameter("@Id", Id));
                     try
                     {
 
@@ -137,30 +184,14 @@ namespace Sto.API.Database
 
                         while (reader.Read())
                         {
-                            bool bg, md;
-                            if ((int)reader["Bogo"] == 1)
-                            {
-                                bg = true;
-                            }
-                            else
-                            {
-                                bg = false;
-                            }
-                            if ((int)reader["MarkedDown"] == 1)
-                            {
-                                md = true;
-                            }
-                            else
-                            {
-                                md = false;
-                            }
+                            
                             product.Id = (int)reader["Id"];
                             product.Name = reader["Name"].ToString();
                             product.Description = reader["Description"].ToString();
                             product.Price = (decimal)reader["Price"];
                             product.Stock = (int)reader["Stock"];
-                            product.Bogo = bg;
-                            product.MarkedDown = md;
+                            product.Bogo = (bool)reader["Bogo"];
+                            product.MarkedDown = (bool)reader["MarkedDown"];
                             product.MarkDownPercent = (int)reader["MarkDownPercent"];
                         }
                         con.Close();
@@ -177,6 +208,7 @@ namespace Sto.API.Database
 
                     command.CommandType = CommandType.Text;
                     command.CommandText = sql;
+                    command.Parameters.Add(new SqlParameter("@Id", Id));
                     try
                     {
 

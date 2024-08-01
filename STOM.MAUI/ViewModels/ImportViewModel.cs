@@ -27,7 +27,7 @@ namespace STOM.MAUI.ViewModels
         //}
         private ProductDTO? ImportModel { get; set; }
         public async void ImportCSV()
-        {
+        {//20min last vid
             var csv = (@Path);
 
             using (var reader = new StreamReader(Path))
